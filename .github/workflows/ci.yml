@@ -1,0 +1,62 @@
+name: Content pack verification
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12.10'
+      - run: python scripts/validate.py
+      - run: python -m unittest discover -s scripts
+      - run: python scripts/package.py
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: windows-x64
+          path: |
+            target/package/*.zip
+            target/package/SHA256SUMS
+          if-no-files-found: error
+
+  release:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: windows
+    runs-on: ubuntu-24.04
+    environment: release
+    permissions:
+      contents: write
+    concurrency:
+      group: content-pack-release
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require a release commit on main
+        run: git merge-base --is-ancestor HEAD origin/main
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: windows-x64
+          path: release-assets
+      - name: Sign and verify release descriptor
+        run: python3 scripts/sign_release.py
+        env:
+          ADDON_SIGNING_KEY: ${{ secrets.ADDON_SIGNING_KEY }}
+      - name: Publish the signed release
+        run: gh release create "$GITHUB_REF_NAME" release-assets/* --verify-tag --title "$GITHUB_REF_NAME" --notes-file ADDON.md
+        env:
+          GH_TOKEN: ${{ github.token }}
