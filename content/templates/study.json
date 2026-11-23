@@ -1,0 +1,250 @@
+{
+  "templates": [
+    {
+      "label": "tpl-engineering-calculation",
+      "template": {
+        "id": "study-templates.engineering-calculation",
+        "name": "Engineering calculation paper",
+        "backgroundColor": "#ffffff",
+        "elements": [
+          {
+            "kind": "grid",
+            "area": {
+              "topPt": 42,
+              "rightPt": 37,
+              "bottomPt": 42,
+              "leftPt": 74
+            },
+            "spacingPt": 14.173228346456694,
+            "color": "#acbac8",
+            "weightPt": 0.36,
+            "major": {
+              "every": 2,
+              "color": "#8396a9",
+              "weightPt": 0.62
+            }
+          },
+          {
+            "kind": "rule",
+            "area": {
+              "topPt": 42,
+              "rightPt": 36,
+              "bottomPt": 42,
+              "leftPt": 36
+            },
+            "edge": "left",
+            "offsetPt": 65,
+            "color": "#a66b70",
+            "weightPt": 0.7
+          },
+          {
+            "kind": "rule",
+            "area": {
+              "topPt": 34,
+              "rightPt": 37,
+              "bottomPt": 36,
+              "leftPt": 38
+            },
+            "edge": "top",
+            "offsetPt": 34,
+            "color": "#a66b70",
+            "weightPt": 0.7
+          }
+        ]
+      }
+    },
+    {
+      "label": "tpl-lab-report",
+      "template": {
+        "id": "study-templates.lab-report",
+        "name": "Lab report",
+        "backgroundColor": "#ffffff",
+        "elements": [
+          {
+            "kind": "rule",
+            "area": {
+              "topPt": 36,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "edge": "top",
+            "offsetPt": 96,
+            "color": "#a66b70",
+            "weightPt": 0.7
+          },
+          {
+            "kind": "horizontal_lines",
+            "area": {
+              "topPt": 107,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "spacingPt": 19.84251968503937,
+            "color": "#a8b5c4",
+            "weightPt": 0.48
+          }
+        ]
+      }
+    },
+    {
+      "label": "tpl-cornell-grid",
+      "template": {
+        "id": "study-templates.cornell-grid",
+        "name": "Cornell grid notes",
+        "backgroundColor": "#ffffff",
+        "elements": [
+          {
+            "kind": "rule",
+            "area": {
+              "topPt": 36,
+              "rightPt": 36,
+              "bottomPt": 135,
+              "leftPt": 36
+            },
+            "edge": "left",
+            "offsetPt": 158,
+            "color": "#a66b70",
+            "weightPt": 0.7
+          },
+          {
+            "kind": "rule",
+            "area": {
+              "topPt": 36,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "edge": "bottom",
+            "offsetPt": 135,
+            "color": "#a66b70",
+            "weightPt": 0.7
+          },
+          {
+            "kind": "grid",
+            "area": {
+              "topPt": 42,
+              "rightPt": 36,
+              "bottomPt": 142,
+              "leftPt": 166
+            },
+            "spacingPt": 14.173228346456694,
+            "color": "#acbac8",
+            "weightPt": 0.36,
+            "major": null
+          },
+          {
+            "kind": "horizontal_lines",
+            "area": {
+              "topPt": 724,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "spacingPt": 19.84251968503937,
+            "color": "#a8b5c4",
+            "weightPt": 0.48
+          }
+        ]
+      }
+    },
+    {
+      "label": "tpl-bullet-journal",
+      "template": {
+        "id": "study-templates.bullet-journal",
+        "name": "Dotted bullet journal",
+        "backgroundColor": "#ffffff",
+        "elements": [
+          {
+            "kind": "dots",
+            "area": {
+              "topPt": 36,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "spacingPt": 14.173228346456694,
+            "color": "#8c9bab",
+            "radiusPt": 0.85
+          }
+        ]
+      }
+    },
+    {
+      "label": "tpl-exam",
+      "template": {
+        "id": "study-templates.exam",
+        "name": "Exam and solution sheet",
+        "backgroundColor": "#ffffff",
+        "elements": [
+          {
+            "kind": "rule",
+            "area": {
+              "topPt": 36,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "edge": "left",
+            "offsetPt": 102,
+            "color": "#a66b70",
+            "weightPt": 0.7
+          },
+          {
+            "kind": "rule",
+            "area": {
+              "topPt": 36,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "edge": "top",
+            "offsetPt": 69,
+            "color": "#a66b70",
+            "weightPt": 0.7
+          },
+          {
+            "kind": "horizontal_lines",
+            "area": {
+              "topPt": 80,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 110
+            },
+            "spacingPt": 19.84251968503937,
+            "color": "#a8b5c4",
+            "weightPt": 0.48
+          }
+        ]
+      }
+    },
+    {
+      "label": "tpl-graph",
+      "template": {
+        "id": "study-templates.graph",
+        "name": "Graph paper (2 mm)",
+        "backgroundColor": "#ffffff",
+        "elements": [
+          {
+            "kind": "grid",
+            "area": {
+              "topPt": 36,
+              "rightPt": 36,
+              "bottomPt": 36,
+              "leftPt": 36
+            },
+            "spacingPt": 5.669291338582678,
+            "color": "#acbac8",
+            "weightPt": 0.36,
+            "major": {
+              "every": 5,
+              "color": "#8396a9",
+              "weightPt": 0.62
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

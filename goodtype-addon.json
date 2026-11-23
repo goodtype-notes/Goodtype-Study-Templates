@@ -1,0 +1,45 @@
+{
+  "manifestVersion": 1,
+  "id": "study-templates",
+  "version": "0.1.0",
+  "apiVersion": "goodtype-api 0.1",
+  "target": "x86_64-pc-windows-msvc",
+  "transport": "content",
+  "permissions": [],
+  "commands": [],
+  "settings": [],
+  "contents": {
+    "templates": [
+      "content/templates/study.json"
+    ],
+    "palettes": [
+      "content/palettes/study.json"
+    ]
+  },
+  "strings": {
+    "en": {
+      "name": "Study Templates",
+      "tpl-engineering-calculation": "Engineering calculation paper",
+      "tpl-lab-report": "Lab report",
+      "tpl-cornell-grid": "Cornell grid notes",
+      "tpl-bullet-journal": "Dotted bullet journal",
+      "tpl-exam": "Exam and solution sheet",
+      "tpl-graph": "Graph paper (2 mm)",
+      "pal-engineering": "Engineering",
+      "pal-highlighter-soft": "Soft highlighters",
+      "pal-colour-blind-safe": "Colour-blind safe (Okabe–Ito)"
+    },
+    "de": {
+      "name": "Lernvorlagen",
+      "tpl-engineering-calculation": "Technisches Rechenpapier",
+      "tpl-lab-report": "Versuchsprotokoll",
+      "tpl-cornell-grid": "Cornell-Notizen mit Raster",
+      "tpl-bullet-journal": "Gepunktetes Bullet Journal",
+      "tpl-exam": "Klausur- und Lösungsblatt",
+      "tpl-graph": "Millimeterpapier (2-mm-Raster)",
+      "pal-engineering": "Technik",
+      "pal-highlighter-soft": "Sanfte Textmarker",
+      "pal-colour-blind-safe": "Farbenblindfreundlich (Okabe–Ito)"
+    }
+  }
+}
