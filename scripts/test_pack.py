@@ -33,6 +33,7 @@ class ValidationTests(unittest.TestCase):
             {"entrypoint": "program.exe"},
             {"strings": {"en": {"name": "Name", "extra": "Extra"}, "de": {"name": "Name"}}},
             {"contents": {"shapes": ["content/shapes/../example.json"]}},
+            {"contents": {"shapes": ["content/shapes/nested/example.json"]}},
         ]
         for mutation in mutations:
             with self.subTest(mutation=mutation):
@@ -73,6 +74,19 @@ class ValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Invalid number"):
             shape_object(obj, 24, 12)
 
+
+    def test_fill_follows_the_pen_or_a_fixed_colour(self):
+        obj = dict(type="shape", x=0, y=0, geometry=dict(kind="ellipse", widthPt=6, heightPt=6), style={})
+        for fill in ("pen", None, "#20242c"):
+            shape_object(obj | {"style": {"fillColor": fill}}, 6, 6)
+        with self.assertRaisesRegex(ValueError, "hex"):
+            shape_object(obj | {"style": {"fillColor": "ink"}}, 6, 6)
+
+    def test_labels_overhang_by_half_the_larger_dimension(self):
+        label = dict(type="typst", x=-24, y=-24, source="$R$", layoutWidthPt=24, scale=1)
+        shape_object(label, 48, 16)
+        with self.assertRaisesRegex(ValueError, "Invalid number"):
+            shape_object(label | {"x": -25}, 48, 16)
 
     def test_package_is_reproducible_and_extracted_content_validates(self):
         archive = package()

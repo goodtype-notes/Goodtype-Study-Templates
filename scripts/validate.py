@@ -124,8 +124,10 @@ def shape_object(obj, w, h):
         require(isinstance(source, str) and 0 < len(source.encode("utf-8")) <= 2048,
                 "Typst label source must be 1–2048 bytes")
         # Check its declared width. The sandboxed host measures the text height after compilation.
-        x, y = number(obj["x"], -w/2, 1.5*w), number(obj["y"], -h/2, 1.5*h)
-        number(x + positive(obj["layoutWidthPt"]) * positive(obj["scale"]), -w/2, 1.5*w)
+        overhang = max(w, h) / 2
+        x = number(obj["x"], -overhang, w + overhang)
+        number(obj["y"], -overhang, h + overhang)
+        number(x + positive(obj["layoutWidthPt"], 10_000) * positive(obj["scale"]), -overhang, w + overhang)
         return
     keys(obj, "type x y geometry style")
     require(obj["type"] == "shape" and isinstance(obj["geometry"], dict), "Expected shape geometry")
@@ -137,7 +139,7 @@ def shape_object(obj, w, h):
     keys(style, "", "strokeColor strokeWidthPt fillColor opacity pattern patternSpacing patternOffsetPt")
     if "strokeColor" in style:
         color(style["strokeColor"])
-    if style.get("fillColor") is not None:
+    if style.get("fillColor") not in (None, "pen"):
         color(style["fillColor"])
     positive(style.get("strokeWidthPt", 1), 256)
     number(style.get("opacity", 1), 0, 1)
@@ -182,10 +184,11 @@ def template(value, prefix):
 
 
 def payload_path(root, kind, relative):
-    require(matches(relative, rf"content/{kind}/(?:[a-zA-Z0-9_-]+/)*[a-zA-Z0-9_-]+\.json"),
+    # The host accepts exactly content/<kind>/<file>.json.
+    require(matches(relative, rf"content/{kind}/[a-zA-Z0-9_-]+\.json"),
             f"Invalid {kind} path: {relative}")
     parts = relative.split("/")
-    require(len(parts) <= 23 and not any(PureWindowsPath(part).is_reserved() for part in parts),
+    require(not any(PureWindowsPath(part).is_reserved() for part in parts),
             f"Invalid Windows package path: {relative}")
     path = root
     for part in parts:
@@ -202,7 +205,7 @@ def add_id(seen, identifier_value):
 def validate(root=ROOT, *, report=True):
     manifest_path = root / "goodtype-addon.json"
     m = load(manifest_path, 64 * 1024)
-    keys(m, "manifestVersion id version apiVersion target transport contents strings settings", "permissions commands")
+    keys(m, "manifestVersion id version apiVersion target transport contents strings settings permissions commands")
     addon_id = identifier(m["id"])
     require(type(m["manifestVersion"]) is int and m["manifestVersion"] == 1, "Expected manifest version 1")
     require(matches(m["version"], r"[0-9]+\.[0-9]+\.[0-9]+") and len(m["version"]) <= 32, "Invalid release version")
@@ -242,7 +245,7 @@ def validate(root=ROOT, *, report=True):
                     label(data["label"])
                     counts["libraries"] += 1
                     item_ids = set()
-                    for item in seq(data["items"], 0, 512):
+                    for item in seq(data["items"], 1, 512):
                         keys(item, "id label search widthPt heightPt objects")
                         add_id(item_ids, identifier(item["id"]))
                         label(item["label"])
