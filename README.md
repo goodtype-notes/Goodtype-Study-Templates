@@ -7,3 +7,5 @@ Study Templates adds six paper layouts and three pen palettes to Goodtype.
 Install from Goodtype’s **Addons** page. See [what’s inside](ADDON.md).
 
 Licensed under [Apache 2.0](LICENSE).
+
+Releases are built and signed when a matching version tag is pushed for a commit on `main`.
