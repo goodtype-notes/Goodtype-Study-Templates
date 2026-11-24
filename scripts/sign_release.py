@@ -20,7 +20,7 @@ def sign(directory):
     tag = f"v{version}"
     require(os.environ["GITHUB_REF"] == f"refs/tags/{tag}", "Tag must match manifest version")
     commit = git("rev-parse", "HEAD")
-    require(commit == os.environ["GITHUB_SHA"] and not git("status", "--porcelain"),
+    require(commit == os.environ["GITHUB_SHA"] and not git("status", "--porcelain", "--untracked-files=no"),
             "Only a clean tagged source commit may be signed")
     archive = directory / f"{PACKAGE_NAME}-{version}-windows-x64.zip"
     data = archive.read_bytes()
@@ -62,4 +62,4 @@ def sign(directory):
 
 
 if __name__ == "__main__":
-    sign(Path("release-assets"))
+    sign(Path(os.environ["RELEASE_ASSETS"]))
